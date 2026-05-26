@@ -26,7 +26,11 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
     query = query.eq('categoria', categoria)
   }
 
-  const { data: produtos } = await query
+  const { data: produtos, error } = await query
+
+  if (error) {
+    console.error('❌ Supabase error in CatalogoPage:', error)
+  }
 
   return (
     <>

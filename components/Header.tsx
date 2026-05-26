@@ -21,8 +21,8 @@ export function Header() {
           <Image
             src="/logo.png"
             alt="Ana Modas"
-            width={120}
-            height={52}
+            width={150}
+            height={60}
             className="logo-img"
             priority
           />

@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ana Modas — Loja de Uniformes Online
 
-## Getting Started
+Loja de uniformes mobile-first integrada com WhatsApp. Clientes navegam pelo catálogo, escolhem tamanho e quantidade, informam nome e telefone e confirmam o pedido. A dona gerencia tudo pelo painel admin.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Frontend:** Next.js 16 (App Router) + TypeScript + Tailwind CSS
+- **Backend/Banco:** Supabase (Postgres + Auth + Storage)
+- **Estado:** Zustand (carrinho persistido em localStorage)
+- **Hospedagem:** Vercel (gratuito)
+
+## Configuração
+
+### 1. Banco de dados (Supabase)
+
+1. Crie um projeto em [supabase.com](https://supabase.com)
+2. Vá em **SQL Editor** e execute o arquivo `supabase/migrations/001_init.sql`
+3. Em **Authentication > Users**, crie o usuário (e-mail + senha) da dona da loja
+
+### 2. Variáveis de ambiente
+
+Edite o arquivo `.env.local` com as credenciais do seu projeto Supabase:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
+SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> As chaves ficam em **Settings → API** no painel do Supabase.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Rodar localmente
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Acesse: http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## Páginas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| URL | Descrição |
+|-----|-----------|
+| `/` | Catálogo público com filtros Adulto/Infantil |
+| `/carrinho` | Revisão do carrinho |
+| `/checkout` | Formulário nome + telefone |
+| `/pedido-confirmado` | Tela de sucesso |
+| `/admin/login` | Login da dona da loja |
+| `/admin/pedidos` | Painel de gerenciamento de pedidos |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy no Vercel
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Faça push para um repositório GitHub
+2. Importe o projeto no [vercel.com](https://vercel.com)
+3. Adicione as variáveis de ambiente no painel do Vercel
+4. Deploy automático a cada push!
+# PagVendasAnaModas

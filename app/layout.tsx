@@ -18,11 +18,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Ana Modas — Uniformes de qualidade',
   description:
-    'Loja de uniformes para adultos e crianças. Escolha seu tamanho, faça seu pedido pelo WhatsApp.',
-  keywords: 'uniformes, loja de uniformes, infantil, adulto, ana modas',
+    'Loja de uniformes oficiais do SESI e Escola Municipal em Cerquilho-SP. Escolha seu tamanho, faça seu pedido pelo WhatsApp.',
+  keywords: 'uniformes, loja de uniformes, sesi, municipal, cerquilho, ana modas',
   openGraph: {
     title: 'Ana Modas',
-    description: 'Uniformes de qualidade para toda a família',
+    description: 'Uniformes escolares oficiais de Cerquilho-SP',
     type: 'website',
   },
 }

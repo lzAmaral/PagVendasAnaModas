@@ -1,4 +1,4 @@
-export type Categoria = 'adulto' | 'infantil'
+export type Categoria = 'sesi' | 'municipal'
 
 export type StatusPedido =
   | 'pendente'

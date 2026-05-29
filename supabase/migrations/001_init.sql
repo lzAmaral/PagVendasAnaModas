@@ -12,7 +12,7 @@ create table if not exists produtos (
   nome        text not null,
   preco       numeric(10,2) not null,
   foto_url    text,
-  categoria   text not null check (categoria in ('adulto', 'infantil')),
+  categoria   text not null check (categoria in ('sesi', 'municipal')),
   ativo       boolean not null default true,
   criado_em   timestamptz not null default now()
 );

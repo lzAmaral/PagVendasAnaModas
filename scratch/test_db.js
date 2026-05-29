@@ -2,7 +2,7 @@ const { createClient } = require('@supabase/supabase-js');
 const fs = require('fs');
 const path = require('path');
 
-// Manually parse env
+// Parse env
 const envPath = path.resolve(__dirname, '../.env.local');
 const envContent = fs.readFileSync(envPath, 'utf8');
 const env = {};
@@ -20,24 +20,14 @@ envContent.split('\n').forEach(line => {
 const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('❌ Environment variables NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY are missing!');
-  process.exit(1);
-}
-
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 async function testConnection() {
-  console.log(`Connecting to: ${supabaseUrl}`);
-  const { data, error } = await supabase.from('produtos').select('*, tamanhos(*)');
-  
+  const { data, error } = await supabase.from('produtos').select('nome, foto_url').limit(10);
   if (error) {
-    console.error('❌ Database connection error:', error);
+    console.error('Error:', error);
   } else {
-    console.log('✅ Connected successfully! Found products:', data ? data.length : 0);
-    if (data) {
-      console.log(JSON.stringify(data.map(p => ({ id: p.id, nome: p.nome })), null, 2));
-    }
+    console.log(data);
   }
 }
 

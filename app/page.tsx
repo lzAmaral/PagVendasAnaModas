@@ -22,7 +22,7 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
     .eq('ativo', true)
     .order('criado_em', { ascending: false })
 
-  if (categoria === 'adulto' || categoria === 'infantil') {
+  if (categoria === 'sesi' || categoria === 'municipal') {
     query = query.eq('categoria', categoria)
   }
 
@@ -38,7 +38,7 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
         <h1 className="catalogo-titulo">
           Ana<span> Modas</span>
         </h1>
-        <p className="catalogo-subtitulo">Uniformes para adultos e crianças com qualidade e carinho 🧵</p>
+        <p className="catalogo-subtitulo">Uniformes escolares de Cerquilho-SP com qualidade e carinho 🏫</p>
         <div className="catalogo-hero-linha" />
       </section>
 
@@ -51,18 +51,18 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
           Todos
         </Link>
         <Link
-          href="/?categoria=adulto"
-          className={`filtro-btn ${categoria === 'adulto' ? 'filtro-btn--ativo' : ''}`}
-          id="filtro-adulto"
+          href="/?categoria=sesi"
+          className={`filtro-btn ${categoria === 'sesi' ? 'filtro-btn--ativo' : ''}`}
+          id="filtro-sesi"
         >
-          Adulto
+          SESI
         </Link>
         <Link
-          href="/?categoria=infantil"
-          className={`filtro-btn ${categoria === 'infantil' ? 'filtro-btn--ativo' : ''}`}
-          id="filtro-infantil"
+          href="/?categoria=municipal"
+          className={`filtro-btn ${categoria === 'municipal' ? 'filtro-btn--ativo' : ''}`}
+          id="filtro-municipal"
         >
-          Infantil
+          Escola Municipal
         </Link>
       </div>
 

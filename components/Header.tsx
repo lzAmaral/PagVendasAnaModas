@@ -30,8 +30,8 @@ export function Header() {
 
         {/* Nav desktop */}
         <nav className="nav-links">
-          <Link href="/?categoria=adulto" className="nav-link">Adulto</Link>
-          <Link href="/?categoria=infantil" className="nav-link">Infantil</Link>
+          <Link href="/?categoria=sesi" className="nav-link">SESI</Link>
+          <Link href="/?categoria=municipal" className="nav-link">Escola Municipal</Link>
         </nav>
 
         {/* Ações */}
@@ -85,11 +85,11 @@ export function Header() {
       {/* Menu mobile expandido */}
       {menuOpen && (
         <div className="mobile-menu">
-          <Link href="/?categoria=adulto" className="mobile-link" onClick={() => setMenuOpen(false)}>
-            Adulto
+          <Link href="/?categoria=sesi" className="mobile-link" onClick={() => setMenuOpen(false)}>
+            SESI
           </Link>
-          <Link href="/?categoria=infantil" className="mobile-link" onClick={() => setMenuOpen(false)}>
-            Infantil
+          <Link href="/?categoria=municipal" className="mobile-link" onClick={() => setMenuOpen(false)}>
+            Escola Municipal
           </Link>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="mobile-link">
             📱 Falar no WhatsApp

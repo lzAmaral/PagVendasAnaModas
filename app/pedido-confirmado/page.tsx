@@ -13,14 +13,13 @@ export default async function PedidoConfirmadoPage({ searchParams }: Props) {
 
   return (
     <div className="confirmado-container">
-      <div className="confirmado-icon">🎉</div>
       <h1 className="confirmado-titulo">Pedido recebido!</h1>
       <p className="confirmado-pedido">
         Número do pedido: <span>#{pedidoCurto}</span>
       </p>
       <div className="confirmado-info">
         <p>Sua encomenda foi registrada com sucesso.</p>
-        <p>A Ana Modas entrará em contato pelo WhatsApp para confirmar e combinar a entrega. 📦</p>
+        <p>A Ana Modas entrará em contato pelo WhatsApp para confirmar e combinar a entrega.</p>
       </div>
       <Link href="/" className="btn-primary" id="btn-voltar-catalogo">
         ← Voltar ao catálogo

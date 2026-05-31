@@ -3,13 +3,13 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { ShoppingBag, Check } from 'lucide-react'
-import type { Produto } from '@/lib/types'
+import type { ProdutoAgrupado } from '@/lib/types'
 import { useCarrinho } from '@/store/carrinho'
 import { SeletorTamanho } from './SeletorTamanho'
 import { ContadorQuantidade } from './ContadorQuantidade'
 
 interface ProdutoCardProps {
-  produto: Produto
+  produto: ProdutoAgrupado
 }
 
 export function ProdutoCard({ produto }: ProdutoCardProps) {
@@ -18,12 +18,16 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
   const [adicionado, setAdicionado] = useState(false)
   const adicionarItem = useCarrinho((s) => s.adicionarItem)
 
-  const tamanhoObj = produto.tamanhos.find((t) => t.tamanho === tamanhoSelecionado)
-  const estoqueMax = tamanhoObj?.estoque ?? 99
+  const opcaoObj = produto.opcoes.find((o) => o.tamanho === tamanhoSelecionado)
+  const estoqueMax = opcaoObj?.estoque ?? 99
+
+  // Se nenhum tamanho selecionado, mostra "a partir de" ou apenas o menor preço
+  const menorPreco = Math.min(...produto.opcoes.map((o) => o.preco))
+  const precoExibicao = opcaoObj ? opcaoObj.preco : menorPreco
 
   function handleAdicionar() {
-    if (!tamanhoSelecionado) return
-    adicionarItem(produto, tamanhoSelecionado, quantidade)
+    if (!tamanhoSelecionado || !opcaoObj) return
+    adicionarItem(opcaoObj.produtoOriginal, tamanhoSelecionado, quantidade)
     setAdicionado(true)
     setTimeout(() => setAdicionado(false), 1800)
     setQuantidade(1)
@@ -35,7 +39,7 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
         {produto.foto_url ? (
           <Image
             src={produto.foto_url}
-            alt={produto.nome}
+            alt={produto.baseNome}
             fill
             className="produto-imagem"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -49,14 +53,15 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
       </div>
 
       <div className="produto-info">
-        <h2 className="produto-nome">{produto.nome}</h2>
+        <h2 className="produto-nome">{produto.baseNome}</h2>
         <p className="produto-preco">
-          R$ {produto.preco.toFixed(2).replace('.', ',')}
+          {!opcaoObj && <span style={{fontSize: '0.8rem', color: 'var(--cinza)', fontWeight: 600}}>A partir de<br/></span>}
+          R$ {precoExibicao.toFixed(2).replace('.', ',')}
         </p>
 
         <div className="produto-tamanhos-label">Tamanho</div>
         <SeletorTamanho
-          tamanhos={produto.tamanhos}
+          opcoes={produto.opcoes}
           selecionado={tamanhoSelecionado}
           onChange={setTamanhoSelecionado}
         />
@@ -72,7 +77,7 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
               className={`btn-adicionar ${adicionado ? 'btn-adicionar--ok' : ''}`}
               onClick={handleAdicionar}
               disabled={!tamanhoSelecionado}
-              id={`adicionar-${produto.id}`}
+              id={`adicionar-${produto.id_virtual}`}
             >
               {adicionado ? (
                 <>

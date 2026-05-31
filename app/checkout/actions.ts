@@ -55,5 +55,50 @@ export async function criarPedido(input: PedidoInput) {
     throw new Error('Erro ao salvar itens: ' + itensError.message)
   }
 
+  try {
+    // Buscar nomes dos produtos para a notificação
+    const produtoIds = input.itens.map(i => i.produto_id)
+    const { data: produtos } = await supabase.from('produtos').select('id, nome').in('id', produtoIds)
+    
+    const itensText = input.itens.map(item => {
+      const p = produtos?.find(p => p.id === item.produto_id)
+      return `- ${item.quantidade}x ${p?.nome || 'Produto'} (Tam: ${item.tamanho})`
+    }).join('\n')
+
+    await notificarTelegram(pedido.id, input.nome_cliente, input.telefone, total, itensText)
+  } catch (err) {
+    console.error('Erro ao enviar notificação:', err)
+  }
+
   redirect(`/pedido-confirmado?id=${pedido.id}`)
+}
+
+async function notificarTelegram(pedidoId: string, nome: string, telefone: string, total: number, itensText: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+
+  if (!token || !chatId) return
+
+  const mensagem = `
+🛍️ *Novo Pedido Recebido!* 
+*ID:* #${pedidoId.slice(0, 8).toUpperCase()}
+
+👤 *Cliente:* ${nome}
+📱 *WhatsApp:* ${telefone}
+
+📦 *Itens:*
+${itensText}
+
+💰 *Total:* R$ ${total.toFixed(2).replace('.', ',')}
+`
+
+  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: mensagem,
+      parse_mode: 'Markdown'
+    })
+  })
 }

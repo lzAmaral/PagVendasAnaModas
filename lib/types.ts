@@ -25,6 +25,22 @@ export interface Produto {
   tamanhos: Tamanho[]
 }
 
+export interface OpcaoTamanho {
+  id: string
+  tamanho: string
+  preco: number
+  estoque: number
+  produtoOriginal: Produto
+}
+
+export interface ProdutoAgrupado {
+  id_virtual: string
+  baseNome: string
+  foto_url: string | null
+  categoria: Categoria
+  opcoes: OpcaoTamanho[]
+}
+
 export interface ItemCarrinho {
   produto: Produto
   tamanho: string

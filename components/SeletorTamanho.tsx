@@ -1,15 +1,15 @@
 'use client'
 
-import type { Tamanho } from '@/lib/types'
+import type { OpcaoTamanho } from '@/lib/types'
 
 interface SeletorTamanhoProps {
-  tamanhos: Tamanho[]
+  opcoes: OpcaoTamanho[]
   selecionado: string | null
   onChange: (tamanho: string) => void
 }
 
-export function SeletorTamanho({ tamanhos, selecionado, onChange }: SeletorTamanhoProps) {
-  const disponíveis = tamanhos.filter((t) => t.estoque > 0)
+export function SeletorTamanho({ opcoes, selecionado, onChange }: SeletorTamanhoProps) {
+  const disponíveis = opcoes.filter((o) => o.estoque > 0)
 
   if (disponíveis.length === 0) {
     return <p className="sem-estoque">Sem estoque disponível</p>
@@ -17,15 +17,15 @@ export function SeletorTamanho({ tamanhos, selecionado, onChange }: SeletorTaman
 
   return (
     <div className="seletor-tamanho">
-      {tamanhos.map((t) => {
-        const esgotado = t.estoque === 0
-        const ativo = selecionado === t.tamanho
+      {opcoes.map((o) => {
+        const esgotado = o.estoque === 0
+        const ativo = selecionado === o.tamanho
         return (
           <button
-            key={t.id}
-            onClick={() => !esgotado && onChange(t.tamanho)}
+            key={o.id}
+            onClick={() => !esgotado && onChange(o.tamanho)}
             disabled={esgotado}
-            aria-label={`Tamanho ${t.tamanho}${esgotado ? ' - esgotado' : ''}`}
+            aria-label={`Tamanho ${o.tamanho}${esgotado ? ' - esgotado' : ''}`}
             className={[
               'tamanho-btn',
               ativo ? 'tamanho-btn--ativo' : '',
@@ -34,7 +34,7 @@ export function SeletorTamanho({ tamanhos, selecionado, onChange }: SeletorTaman
               .filter(Boolean)
               .join(' ')}
           >
-            {t.tamanho}
+            {o.tamanho}
           </button>
         )
       })}

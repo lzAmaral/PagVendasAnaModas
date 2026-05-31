@@ -82,7 +82,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Menu mobile expandido */}
       {menuOpen && (
         <div className="mobile-menu">
           <Link href="/?categoria=sesi" className="mobile-link" onClick={() => setMenuOpen(false)}>
@@ -92,13 +91,13 @@ export function Header() {
             Escola Municipal
           </Link>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="mobile-link">
-            📱 Falar no WhatsApp
+            Falar no WhatsApp
           </a>
           <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="mobile-link">
-            📍 Como chegar
+            Como chegar
           </a>
           <Link href="/carrinho" className="mobile-link" onClick={() => setMenuOpen(false)}>
-            🛍️ Carrinho ({totalItens()})
+            Carrinho ({totalItens()})
           </Link>
         </div>
       )}

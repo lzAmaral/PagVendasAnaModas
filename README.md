@@ -1,4 +1,4 @@
-# 🛍️ Ana Modas — E-commerce de Uniformes Escolares
+#  Ana Modas — E-commerce de Uniformes Escolares
 
 > Plataforma de e-commerce desenvolvida sob demanda para a **Ana Modas**, loja de uniformes escolares localizada em Cerquilho-SP.  
 > O projeto permite que os clientes naveguem pelo catálogo, escolham tamanhos e quantidades, e finalizem pedidos de forma prática — com notificações em tempo real para a lojista via Telegram.
@@ -10,7 +10,7 @@
 
 ---
 
-## 📋 Sobre o Projeto
+## Sobre o Projeto
 
 Este projeto foi desenvolvido como uma solução completa de e-commerce para uma empresa real. A **Ana Modas** é uma loja física de uniformes escolares que precisava de presença digital para atender suas clientes de forma mais eficiente.
 
@@ -27,7 +27,7 @@ Uma plataforma web mobile-first onde as clientes podem:
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 | Funcionalidade | Descrição |
 |---|---|
@@ -41,7 +41,7 @@ Uma plataforma web mobile-first onde as clientes podem:
 
 ---
 
-## 🛠️ Stack Técnica
+## Stack Técnica
 
 | Camada | Tecnologia |
 |---|---|
@@ -59,7 +59,7 @@ Uma plataforma web mobile-first onde as clientes podem:
 
 ---
 
-## 🗺️ Estrutura de Páginas
+## Estrutura de Páginas
 
 | Rota | Descrição | Acesso |
 |---|---|---|
@@ -72,69 +72,7 @@ Uma plataforma web mobile-first onde as clientes podem:
 
 ---
 
-## 🚀 Como Rodar Localmente
 
-### Pré-requisitos
-
-- Node.js 18+
-- Conta no [Supabase](https://supabase.com) (gratuito)
-- Conta no [Telegram](https://telegram.org) (para notificações)
-
-### 1. Clone o repositório
-
-```bash
-git clone https://github.com/lzAmaral/PagVendasAnaModas.git
-cd PagVendasAnaModas/ana-modas
-```
-
-### 2. Instale as dependências
-
-```bash
-npm install
-```
-
-### 3. Configure o banco de dados
-
-1. Crie um projeto no [Supabase](https://supabase.com)
-2. Execute o arquivo `supabase/migrations/001_init.sql` no **SQL Editor**
-3. Em **Authentication > Users**, crie o usuário administrador (e-mail + senha)
-
-### 4. Configure as variáveis de ambiente
-
-Crie o arquivo `.env.local` na raiz do projeto:
-
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
-SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
-
-# Telegram (notificações de pedidos)
-TELEGRAM_BOT_TOKEN=seu-bot-token
-TELEGRAM_CHAT_ID=seu-chat-id
-```
-
-> As chaves do Supabase ficam em **Settings → API** no painel do projeto.  
-> Para o Telegram, crie um bot com o [@BotFather](https://t.me/BotFather) e obtenha seu ID com o [@userinfobot](https://t.me/userinfobot).
-
-### 5. Inicie o servidor de desenvolvimento
-
-```bash
-npm run dev
-```
-
-Acesse: [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🌐 Deploy (Vercel)
-
-1. Faça push do código para o GitHub
-2. Importe o projeto no [Vercel](https://vercel.com)
-3. Adicione as variáveis de ambiente no painel **Settings → Environment Variables**
-4. O deploy é automático a cada push na branch `main`
-
----
 
 ## 📁 Estrutura do Projeto
 
@@ -169,7 +107,7 @@ ana-modas/
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
 **Luiz Amaral**  
 Desenvolvedor Full Stack
@@ -178,7 +116,7 @@ Desenvolvedor Full Stack
 
 ---
 
-## 📄 Licença
+##  Licença
 
 Este projeto foi desenvolvido sob demanda para a **Ana Modas** (Cerquilho-SP).  
 Código disponível para fins de portfólio e referência.

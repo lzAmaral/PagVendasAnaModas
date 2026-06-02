@@ -19,6 +19,23 @@ interface PedidoInput {
 export async function criarPedido(input: PedidoInput) {
   const supabase = await createServiceClient()
 
+  // 1. Verificar estoque
+  const produtoIds = input.itens.map(i => i.produto_id)
+  const { data: estoques } = await supabase
+    .from('tamanhos')
+    .select('id, produto_id, tamanho, estoque')
+    .in('produto_id', produtoIds)
+
+  for (const item of input.itens) {
+    const tamanhoDb = estoques?.find(e => e.produto_id === item.produto_id && e.tamanho === item.tamanho)
+    if (!tamanhoDb) {
+      throw new Error(`Produto/Tamanho não encontrado: ${item.tamanho}`)
+    }
+    if (tamanhoDb.estoque < item.quantidade) {
+      throw new Error(`Estoque insuficiente. Restam apenas ${tamanhoDb.estoque} unidades do tamanho ${item.tamanho}.`)
+    }
+  }
+
   const total = input.itens.reduce(
     (acc, i) => acc + i.preco_unitario * i.quantidade,
     0
@@ -53,6 +70,17 @@ export async function criarPedido(input: PedidoInput) {
 
   if (itensError) {
     throw new Error('Erro ao salvar itens: ' + itensError.message)
+  }
+
+  // Atualizar estoque no banco (subtrair as unidades compradas)
+  for (const item of input.itens) {
+    const tamanhoDb = estoques?.find(e => e.produto_id === item.produto_id && e.tamanho === item.tamanho)
+    if (tamanhoDb) {
+      await supabase
+        .from('tamanhos')
+        .update({ estoque: tamanhoDb.estoque - item.quantidade })
+        .eq('id', tamanhoDb.id)
+    }
   }
 
   try {

@@ -35,7 +35,18 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
     
     startTransition(async () => {
       try {
-        const estoqueReal = await consultarEstoqueReal(opcaoObj.id)
+        const { createClient } = await import('@/lib/supabase/client')
+        const supabase = createClient()
+        
+        const { data, error } = await supabase
+          .from('tamanhos')
+          .select('estoque')
+          .eq('id', opcaoObj.id)
+          .single()
+
+        if (error) throw error
+        
+        const estoqueReal = data?.estoque ?? 0
         
         const itemNoCarrinho = itensCarrinho.find(
           i => i.produto.id === opcaoObj.produtoOriginal.id && i.tamanho === tamanhoSelecionado
@@ -53,6 +64,7 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
         setQuantidade(1)
       } catch (err) {
         alert('Erro ao verificar estoque. Tente novamente.')
+        console.error(err)
       }
     })
   }

@@ -1,10 +1,10 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export async function atualizarEstoque(tamanhoId: string, novoEstoque: number) {
-  const supabase = await createClient()
+  const supabase = await createServiceClient()
 
   if (novoEstoque < 0) {
     throw new Error('Estoque não pode ser negativo')

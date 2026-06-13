@@ -7,7 +7,7 @@ import type { ProdutoAgrupado } from '@/lib/types'
 import { useCarrinho } from '@/store/carrinho'
 import { SeletorTamanho } from './SeletorTamanho'
 import { ContadorQuantidade } from './ContadorQuantidade'
-import { consultarEstoqueReal } from '@/app/actions/estoque'
+
 
 interface ProdutoCardProps {
   produto: ProdutoAgrupado
